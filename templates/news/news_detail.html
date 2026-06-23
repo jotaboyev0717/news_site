@@ -1,0 +1,69 @@
+{% extends 'news/base.html' %} 
+{% load static %}
+{% load hitcount_tags %}
+{% block title %} {{ news.title }} {% endblock %}
+{% block content %}
+<div class="bg-white border border-top-0 p-4">
+    <div class="mb-3">
+        <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2" href="">{{ news.category }}</a>
+        <span class="text-muted small">{{ news.publish_time|date:"M d, Y" }}</span>
+        <span class="text-muted small ml-3"><i class="fas fa-eye mr-1"></i>{% get_hit_count for news %}</span>
+        <span class="text-muted small ml-3"><i class="fas fa-comments mr-1"></i>{{ comments_count }}</span>
+    </div>
+    <h1 class="mb-3 text-secondary text-uppercase font-weight-bold">{{ news.title }}</h1>
+    {% if news.image %}
+    <img src="{{ news.image.url }}" alt="{{ news.title }}" class="img-fluid w-100 mb-4" style="object-fit: cover; max-height: 500px;">
+    {% endif %}
+    <div class="text-body">{{ news.body|linebreaks }}</div>
+</div>
+
+    {% comment %} {% if request.user.is_authenticated and request.user.is_superuser %}
+    <a href="{% url 'news/news_edit' news.id %}">Edit</a>
+    <form action="{% url 'news/news_delete' news.id %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+    {% endif %} {% endcomment %}
+    <br>
+<!-- Comment List Start -->
+<div class="mb-3">
+    <div class="section-title mb-0">
+        <h4 class="m-0 text-uppercase font-weight-bold">{{ comments_count }} Comments</h4>
+    </div>
+    <div class="bg-white border border-top-0 p-4">
+        {% for comment in comments %}
+        <div class="media mb-4">
+            <div class="media-body">
+                <h6>
+                    <a class="text-secondary font-weight-bold" href="">{{ comment.user }}</a>
+                    <small class="text-muted font-weight-normal ml-2"><i>{{ comment.created_time|date:"d M Y" }}</i></small>
+                </h6>
+                <p class="m-0">{{ comment.body|linebreaks }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-muted">Hozircha izohlar mavjud emas.</p>
+        {% endfor %}
+    </div>
+</div>
+<!-- Comment List End -->
+
+<!-- Comment Form Start -->
+<div class="mb-3">
+    <div class="section-title mb-0">
+        <h4 class="m-0 text-uppercase font-weight-bold">Leave a Comment</h4>
+    </div>
+    <div class="bg-white border border-top-0 p-4">
+        {% if user.is_authenticated %}
+        <form method="post">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit" class="btn btn-primary font-weight-semi-bold px-4" style="height: 50px;">Submit</button>
+        </form>
+        {% else %}
+        <p>Izoh qoldirish uchun <a href="{% url 'login' %}" class="font-weight-bold" style="color: blue;">tizimga kiring</a>.</p>
+        {% endif %}
+    </div>
+</div>
+<!-- Comment Form End -->
+{% endblock %}

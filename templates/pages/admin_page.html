@@ -1,0 +1,22 @@
+{% extends "news/base.html" %}
+
+{% block title %} Admin Page{% endblock %}
+
+{% block content %}
+    <h1>Admin Page</h1>
+    <p>Welcome to the admin page. Here you can manage your news articles and categories.</p>
+
+    <h2>Admin Users</h2>
+    <ul>
+        {% for admin in admin_users %}
+            <li>{{ admin.username }} ({{ admin.email }})</li>
+        {% empty %}
+            <li>No admin users found.</li>
+        {% endfor %}
+    </ul>
+<h2>
+    <a href="{% url 'news_create' %}" style="color: blue; text-decoration: none;">
+        + Yangilik qo'shish
+    </a>
+</h2>
+{% endblock %} 

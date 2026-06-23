@@ -1,0 +1,18 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+    <h1>Search Results</h1>
+    {% if news_list %}
+        <ul>
+            {% for news in news_list %}
+                <li><a href="{% url 'news_detail' news.id %}">{{ news.title }}</a></li>
+                <p>{{news.body | truncatewords:10}}</p>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+{% endblock %}

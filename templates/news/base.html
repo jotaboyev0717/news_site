@@ -1,0 +1,268 @@
+{% comment %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Site{% endblock %}</title>
+    <!-- CSS and JS links here -->
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header>...</header>
+    <main class="container my-4">
+        {% block content %}{% endblock content %}
+    </main>
+    <footer>...</footer>
+</body>
+</html> {% endcomment %}
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}BizNews - Free News Website Template{% endblock %}</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endif %}
+    <!-- Topbar Start -->
+    <div class="container-fluid d-none d-lg-block">
+        <div class="row align-items-center bg-dark px-lg-5">
+            <div class="col-lg-9">
+                <nav class="navbar navbar-expand-sm bg-dark p-0">
+                    <ul class="navbar-nav ml-n2">
+                        <li class="nav-item border-right border-secondary">
+                            <a class="nav-link text-body small" href="#">{{ today|date:"l, F j, Y" }}</a>
+                        </li>
+                        <li class="nav-item border-right border-secondary">
+                            <a class="nav-link text-body small" href="#">Advertise</a>
+                        </li>
+                        <li class="nav-item border-right border-secondary">
+                            <a class="nav-link text-body small" href="{% url 'contact_page' %}">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                        {% if request.user.is_authenticated %}
+                            <li class="nav-item border-right border-secondary">
+                                <a class="nav-link text-body small" href="{% url 'user_profile' %}">My Profile</a>
+                            </li>
+                            <li class="nav-item border-right border-secondary">
+                                <a class="nav-link text-body small" href="{% url 'logout' %}">Logout</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item border-right border-secondary">
+                                <a class="nav-link text-body small" href="{% url 'login' %}">Login</a>
+                            </li>
+                        {% endif %}
+                        {% if user.is_authenticated and user.is_superuser %}
+                            <li class="nav-item">
+                                <a class="nav-link text-body small" href="{% url 'admin_page' %}">Admin page</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item border-right border-secondary text-body small">
+                            <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                                <select name="language" onchange="this.form.submit()">
+                                    {% get_current_language as LANGUAGE_CODE %}
+                                    
+                                    {% get_language_info_list for LANGUAGES as LANGUAGE_CODE_INFO %}
+                                    
+                                    {% for language in LANGUAGE_CODE_INFO %}
+                                        <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}selected{% endif %}>
+                                            {{ language.name_local }} ({{ language.code }})
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                                </form>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3 text-right d-none d-md-block">
+                <nav class="navbar navbar-expand-sm bg-dark p-0">
+                    <ul class="navbar-nav ml-auto mr-n2">
+                        <li class="nav-item">
+                            <a class="nav-link text-body" href="#"><small class="fab fa-twitter"></small></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-body" href="#"><small class="fab fa-facebook-f"></small></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-body" href="#"><small class="fab fa-linkedin-in"></small></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-body" href="#"><small class="fab fa-instagram"></small></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-body" href="#"><small class="fab fa-google-plus-g"></small></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-body" href="#"><small class="fab fa-youtube"></small></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="row align-items-center bg-white py-3 px-lg-5">
+            <div class="col-lg-4">
+                <a href="{% url 'home_page' %}" class="navbar-brand p-0 d-none d-lg-block">
+                    <h1 class="m-0 display-4 text-uppercase text-primary">Biz<span class="text-secondary font-weight-normal">News</span></h1>
+                </a>
+            </div>
+            <div class="col-lg-8 text-center text-lg-right">
+                <a href="https://htmlcodex.com"><img class="img-fluid" src="img/ads-728x90.png" alt=""></a>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-2 py-lg-0 px-lg-5">
+            <a href="{% url 'home_page' %}" class="navbar-brand d-block d-lg-none">
+                <h1 class="m-0 display-4 text-uppercase text-primary">Biz<span class="text-white font-weight-normal">News</span></h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
+                <div class="navbar-nav mr-auto py-0">
+                    <a href="{% url 'home_page' %}" class="nav-item nav-link {% block nav_home %}{% endblock %}">Home</a>
+                    <a href="{% url 'category_page' %}" class="nav-item nav-link {% block nav_category %}{% endblock %}">Category</a>
+                    <a href="{% url 'single_page' %}" class="nav-item nav-link {% block nav_single %}{% endblock %}">Single News</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Dropdown</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="{% url 'home_page' %}" class="dropdown-item">Menu item 1</a>
+                            <a href="{% url 'category_page' %}" class="dropdown-item">Menu item 2</a>
+                            <a href="{% url 'single_page' %}" class="dropdown-item">Menu item 3</a>
+                        </div>
+                    </div>
+                    <a href="{% url 'contact_page' %}" class="nav-item nav-link {% block nav_contact %}{% endblock %}">Contact</a>
+                </div>
+                <div class="input-group ml-auto d-none d-lg-flex" style="width: 100%; max-width: 300px;">
+                    {% comment %} <input type="text" class="form-control border-0" name='q' placeholder="Keyword">
+                    <div class="input-group-append">
+                        <button class="input-group-text bg-primary text-dark border-0 px-3"><i
+                                class="fa fa-search"></i></button>
+                    </div> {% endcomment %}
+                    <form method="get" action="{% url 'search_results' %}" class="input-group">
+                        <input type="text" class="form-control border-0" name='q' placeholder="Keyword">
+                        <div class="input-group-append">
+                            <button class="input-group-text bg-primary text-dark border-0 px-3"><i
+                                    class="fa fa-search"></i></button>
+                        </div>    
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Content Start -->
+    {% block content %}
+    {% endblock %}
+    <!-- Content End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark pt-5 px-sm-3 px-md-5 mt-5">
+        <div class="row py-4">
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h5 class="mb-4 text-white text-uppercase font-weight-bold">Get In Touch</h5>
+                <p class="font-weight-medium"><i class="fa fa-map-marker-alt mr-2"></i> Khorezm, Uzbekistan</p>
+                <p class="font-weight-medium"><i class="fa fa-phone-alt mr-2"></i>+998 50 222 39 66</p>
+                <p class="font-weight-medium"><i class="fa fa-envelope mr-2"></i>jotaboyev0717@gmail.com</p>
+                <h6 class="mt-4 mb-3 text-white text-uppercase font-weight-bold">Follow Us</h6>
+                <div class="d-flex justify-content-start">
+                    <a class="btn btn-lg btn-secondary btn-lg-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-lg btn-secondary btn-lg-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-lg btn-secondary btn-lg-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-lg btn-secondary btn-lg-square mr-2" href="#"><i class="fab fa-instagram"></i></a>
+                    <a class="btn btn-lg btn-secondary btn-lg-square" href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h5 class="mb-4 text-white text-uppercase font-weight-bold">Popular News</h5>
+                {% for news in footer_news %}
+                <div class="mb-3">
+                    <div class="mb-2">
+                        <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">{{ news.category }}</a>
+                        <a class="text-body" href=""><small>{{ news.publish_time|date:"M d, Y" }}</small></a>
+                    </div>
+                    <a class="small text-body text-uppercase font-weight-medium" href="{{ news.get_absolute_url }}">{{ news.title }}</a>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h5 class="mb-4 text-white text-uppercase font-weight-bold">Categories</h5>
+                <div class="m-n1">
+                    {% for category in footer_categories %}
+                    <a href="" class="btn btn-sm btn-secondary m-1">{{ category.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h5 class="mb-4 text-white text-uppercase font-weight-bold">About Us</h5>
+                <p class="text-body">BizNews — eng so'nggi yangiliklar, tahlillar va qiziqarli maqolalar manbai. Biz sizga dolzarb ma'lumotlarni tez va ishonchli yetkazamiz.</p>
+                <a href="{% url 'contact_page' %}" class="btn btn-primary btn-sm mt-2">Bog'lanish</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid py-4 px-sm-3 px-md-5" style="background: #111111;">
+        <p class="m-0 text-center text-body">&copy; <a href="{% url 'home_page' %}" class="text-primary">BizNews</a>. Barcha huquqlar himoyalangan.</p>
+    </div>
+    <!-- Footer End -->
+
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary btn-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/easing.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

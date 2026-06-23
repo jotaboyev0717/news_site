@@ -1,0 +1,16 @@
+{% extends 'news/base.html' %}
+
+{% block title %}Tizimdan chiqish{% endblock %}
+
+{% block content %}
+    <h2>Siz tizimdan chiqdingiz</h2>
+    <p>Siz tizimdan muvaffaqiyatli chiqdingiz.</p>
+    
+    <hr>
+    <p>
+        Qayta kirish uchun <a href="{% url 'login' %}" style = "color: blue;">Login sahifasiga</a> o'ting.
+    </p>
+    <p>
+        Yoki <a href="{% url 'home_page' %}" style = "color: blue;">Bosh sahifaga</a> qayting.
+    </p>
+{% endblock %}
