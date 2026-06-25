@@ -70,9 +70,9 @@
                         <li class="nav-item border-right border-secondary">
                             <span class="nav-link text-body small">Advertise</span>
                         </li>
-                        <li class="nav-item border-right border-secondary">
+                        {% comment %} <li class="nav-item border-right border-secondary">
                             <a class="nav-link text-body small" href="{% url 'contact_page' %}">Contact</a>
-                        </li>
+                        </li> {% endcomment %}
                         
                         {% if request.user.is_authenticated %}
                             <li class="nav-item border-right border-secondary">
@@ -163,14 +163,14 @@
                     <a href="{% url 'home_page' %}" class="nav-item nav-link {% block nav_home %}{% endblock %}">Home</a>
                     <a href="{% url 'category_page' %}" class="nav-item nav-link {% block nav_category %}{% endblock %}">Category</a>
                     <a href="{% url 'single_page' %}" class="nav-item nav-link {% block nav_single %}{% endblock %}">Single News</a>
-                    <div class="nav-item dropdown">
+                    {% comment %} <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Dropdown</a>
                         <div class="dropdown-menu rounded-0 m-0">
                             <a href="{% url 'home_page' %}" class="dropdown-item">Menu item 1</a>
                             <a href="{% url 'category_page' %}" class="dropdown-item">Menu item 2</a>
                             <a href="{% url 'single_page' %}" class="dropdown-item">Menu item 3</a>
                         </div>
-                    </div>
+                    </div> {% endcomment %}
                     <a href="{% url 'contact_page' %}" class="nav-item nav-link {% block nav_contact %}{% endblock %}">Contact</a>
                 </div>
                 <div class="input-group ml-auto d-none d-lg-flex" style="width: 100%; max-width: 300px;">

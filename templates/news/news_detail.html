@@ -10,11 +10,16 @@
         <span class="text-muted small ml-3"><i class="fas fa-eye mr-1"></i>{% get_hit_count for news %}</span>
         <span class="text-muted small ml-3"><i class="fas fa-comments mr-1"></i>{{ comments_count }}</span>
     </div>
+    
     <h1 class="mb-3 text-secondary text-uppercase font-weight-bold">{{ news.title }}</h1>
+    
     {% if news.image %}
-    <img src="{{ news.image.url }}" alt="{{ news.title }}" class="img-fluid w-100 mb-4" style="object-fit: cover; max-height: 500px;">
+        <img src="{{ news.image.url }}" alt="{{ news.title }}" class="img-fluid w-100 mb-4" style="object-fit: cover; max-height: 500px;">
     {% endif %}
-    <div class="text-body">{{ news.body|linebreaks }}</div>
+
+    <div class="text-body" style="max-width: 800px; margin: 0 auto;">
+        {{ news.body|linebreaks }}
+    </div>
 </div>
 
     {% comment %} {% if request.user.is_authenticated and request.user.is_superuser %}
