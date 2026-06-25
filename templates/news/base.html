@@ -73,7 +73,7 @@
                         <li class="nav-item border-right border-secondary">
                             <a class="nav-link text-body small" href="{% url 'contact_page' %}">Contact</a>
                         </li>
-                        <li class="nav-item">
+                        
                         {% if request.user.is_authenticated %}
                             <li class="nav-item border-right border-secondary">
                                 <a class="nav-link text-body small" href="{% url 'user_profile' %}">My Profile</a>
@@ -86,18 +86,19 @@
                                 <a class="nav-link text-body small" href="{% url 'login' %}">Login</a>
                             </li>
                         {% endif %}
+
                         {% if user.is_authenticated and user.is_superuser %}
-                            <li class="nav-item">
+                            <li class="nav-item border-right border-secondary">
                                 <a class="nav-link text-body small" href="{% url 'admin_page' %}">Admin page</a>
                             </li>
                         {% endif %}
-                        <li class="nav-item border-right border-secondary text-body small">
-                            <form action="{% url 'set_language' %}" method="post" class="d-flex align-items-center h-100">
+
+                        <li class="nav-item">
+                            <form action="{% url 'set_language' %}" method="post" class="d-flex align-items-center h-100 ml-2">
                                 {% csrf_token %}
-                                <select name="language" onchange="this.form.submit()" class="form-control-sm bg-dark text-white border-0">
+                                <select name="language" onchange="this.form.submit()" class="form-control-sm bg-dark text-white border-0" style="cursor: pointer;">
                                     {% get_current_language as LANGUAGE_CODE %}
                                     {% get_language_info_list for LANGUAGES as LANGUAGE_CODE_INFO %}
-                                    
                                     {% for language in LANGUAGE_CODE_INFO %}
                                         <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}selected{% endif %}>
                                             {{ language.name_local }} ({{ language.code }})
@@ -105,18 +106,6 @@
                                     {% endfor %}
                                 </select>
                             </form>
-                                <select name="language" onchange="this.form.submit()">
-                                    {% get_current_language as LANGUAGE_CODE %}
-                                    
-                                    {% get_language_info_list for LANGUAGES as LANGUAGE_CODE_INFO %}
-                                    
-                                    {% for language in LANGUAGE_CODE_INFO %}
-                                        <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}selected{% endif %}>
-                                            {{ language.name_local }} ({{ language.code }})
-                                        </option>
-                                    {% endfor %}
-                                </select>
-                                </form>
                         </li>
                     </ul>
                 </nav>
