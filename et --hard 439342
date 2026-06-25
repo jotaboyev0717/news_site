@@ -1,0 +1,53 @@
+[33mcommit fb63ff540d0f3b0144a07364254fb4e8756b353d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Juratbek Otaboyev <jotaboyev0717@gmail.com>
+Date:   Thu Jun 25 10:51:31 2026 +0500
+
+    views urls categorypage changed
+
+[33mcommit 4393427cf54f721e5006e58f6920a43df73e48df[m
+Author: Juratbek Otaboyev <jotaboyev0717@gmail.com>
+Date:   Thu Jun 25 10:43:42 2026 +0500
+
+    base, categories fixed
+
+[33mcommit 13dc4a9979e91d00821202ece087d405993f2a2b[m
+Author: Juratbek Otaboyev <jotaboyev0717@gmail.com>
+Date:   Thu Jun 25 10:39:11 2026 +0500
+
+    news_detail page changed
+
+[33mcommit d75f247392d4b0ed66386903b738666572979ffb[m
+Author: Juratbek Otaboyev <jotaboyev0717@gmail.com>
+Date:   Thu Jun 25 10:30:26 2026 +0500
+
+    login.html changed username login, base.html buttons unclickable
+
+[33mcommit 6c3cc31f71129413acba0cd2df3b8c6378b646e5[m
+Author: Juratbek Otaboyev <jotaboyev0717@gmail.com>
+Date:   Thu Jun 25 10:22:40 2026 +0500
+
+    base.html edited language bar
+
+[33mcommit 27550247abaa8dce28e7a919f7586569e0439cad[m
+Author: Juratbek Otaboyev <jotaboyev0717@gmail.com>
+Date:   Thu Jun 25 10:15:58 2026 +0500
+
+    base.html edited language bar
+
+[33mcommit 388d3e457c8bfad86165aefc861eb0f9e4463ae0[m
+Author: Juratbek Otaboyev <jotaboyev0717@gmail.com>
+Date:   Tue Jun 23 18:30:36 2026 +0500
+
+    django version changed from 6.0.6 to 5.1.5
+
+[33mcommit c75e3500246e648237f79b98f5d9814795b45425[m
+Author: Juratbek Otaboyev <jotaboyev0717@gmail.com>
+Date:   Tue Jun 23 18:20:58 2026 +0500
+
+    everything uploaded
+
+[33mcommit 4c96c7ab703adad8e2c0c8f94cc7c57b65cfd329[m
+Author: Juratbek Otaboyev <jotaboyev0717@gmail.com>
+Date:   Tue Jun 23 18:19:51 2026 +0500
+
+    first commit
