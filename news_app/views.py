@@ -12,6 +12,14 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Q
 from hitcount.utils import get_hitcount_model
 from hitcount.views import HitCountMixin
+
+from django.views.generic import DeleteView
+from django.urls import reverse_lazy
+
+class NewsDeleteView(OnlyLoggedSuperUser, DeleteView):
+    model = News
+    template_name = 'news/news_delete.html'
+    success_url = reverse_lazy('all_news_list')
 # Create your views here.
 from .forms import NewsForm
 
